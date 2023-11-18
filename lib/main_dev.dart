@@ -12,7 +12,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-  AppConfig.prod();
+  AppConfig.dev();
 
   Logger.level = Level.all;
 

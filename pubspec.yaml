@@ -13,6 +13,12 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.6
+  logger: ^2.0.2+1
+  catcher: ^0.8.0
+  loader_overlay: ^3.0.0
+  loading_animation_widget: ^1.2.0+4
+  responsive_framework: ^1.1.1
+  easy_localization: ^3.0.3
 
 dev_dependencies:
   flutter_test:
@@ -23,3 +29,14 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+
+  fonts:
+    - family: Cloud
+      fonts:
+        - asset: assets/fonts/cloud/Cloud-Light.otf
+        - asset: assets/fonts/cloud/Cloud-Bold.otf
+          weight: 500
+
+  assets:
+    - assets/images/
+    - assets/languages/
