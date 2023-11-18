@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gru_chang/app/app_string.dart';
+import 'package:gru_chang/ui/router.dart';
 import 'package:gru_chang/utils/locale_util.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,12 +20,24 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(AppString.homePage.tr()),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            LocaleUtil.changeLanguage(context);
-          });
-        },
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: 'TEST1',
+            onPressed: () {
+              setState(() {
+                LocaleUtil.changeLanguage(context);
+              });
+            },
+          ),
+          FloatingActionButton(
+            heroTag: 'TEST2',
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, RoutePaths.catalogPage);
+            },
+          ),
+        ],
       ),
     );
   }

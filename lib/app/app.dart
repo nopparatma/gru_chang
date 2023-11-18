@@ -5,7 +5,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gru_chang/shared/ui_config.dart';
-import 'package:gru_chang/ui/page/home.dart';
+import 'package:gru_chang/ui/page/home_page.dart';
+import 'package:gru_chang/ui/router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:logger/logger.dart';
@@ -78,7 +79,6 @@ class _MainWebState extends State<MainWeb> {
             fontFamily: appFontFamily,
           ),
         ),
-        navigatorKey: Catcher.navigatorKey,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
@@ -91,6 +91,8 @@ class _MainWebState extends State<MainWeb> {
             const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
           ],
         ),
+        navigatorKey: Catcher.navigatorKey,
+        onGenerateRoute: WebRouter.generateRoute,
         home: const HomePage(),
       ),
     );
