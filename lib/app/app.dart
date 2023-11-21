@@ -19,14 +19,16 @@ class MainAppLocalization extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EasyLocalization(
-      supportedLocales: const [
-        Locale('en'),
-        Locale('th'),
-      ],
       path: 'assets/languages',
+      supportedLocales: const [
+        Locale('th'),
+        Locale('en'),
+      ],
+      fallbackLocale: const Locale('th'),
+      startLocale: const Locale('th'),
       child: GlobalLoaderOverlay(
         useDefaultLoading: false,
-        overlayColor: Colors.black,
+        overlayColor: Colors.black.withOpacity(0.5),
         overlayWidgetBuilder: (progress) => buildOverlayLoader(),
         child: buildChild(),
       ),
@@ -44,7 +46,7 @@ class MainAppLocalization extends StatelessWidget {
   Widget buildOverlayLoader() {
     return Center(
       child: LoadingAnimationWidget.staggeredDotsWave(
-        color: Colors.lightGreen,
+        color: Colors.red.shade900,
         size: 100,
       ),
     );

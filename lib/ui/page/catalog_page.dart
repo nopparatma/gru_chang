@@ -31,6 +31,7 @@ class _CatalogPageState extends State<CatalogPage> {
               });
             },
           ),
+          const SizedBox(height: 10),
           FloatingActionButton(
             heroTag: 'TEST2',
             onPressed: () {
