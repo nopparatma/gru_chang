@@ -4,6 +4,7 @@ import 'package:catcher/core/catcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gru_chang/shared/colors.dart';
 import 'package:gru_chang/shared/ui_config.dart';
 import 'package:gru_chang/ui/page/home_page.dart';
 import 'package:gru_chang/ui/router.dart';
@@ -73,8 +74,12 @@ class _MainWebState extends State<MainWeb> {
       onTapUp: (detail) => FocusScope.of(context).requestFocus(FocusNode()),
       child: MaterialApp(
         title: AppConfig.instance.applicationName,
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: appFontFamily,
+          colorScheme: const ColorScheme.dark(
+            background: colorBackground,
+          ),
           textTheme: Theme.of(context).textTheme.apply(
             bodyColor: Colors.white,
             displayColor: Colors.white,
