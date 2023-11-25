@@ -19,11 +19,29 @@ class _HomePageState extends State<HomePage> {
     'English',
     'ไทย',
   ];
+
+  List<String> listMenus = [
+    'Home',
+    'Antique',
+    'About Us',
+    'Contact Us',
+  ];
+
   late String? selectedValue;
+  late List<Widget> listMenuWidgets = [];
 
   @override
   void initState() {
     selectedValue = items[0];
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      for (String item in listMenus) {
+        listMenuWidgets.addAll([
+          Text(item, style: Theme.of(context).textTheme.small),
+          const SizedBox(width: 30),
+        ]);
+      }
+    });
 
     super.initState();
   }
@@ -35,11 +53,14 @@ class _HomePageState extends State<HomePage> {
         children: [
           Expanded(
             child: ListView(
+              physics: const ClampingScrollPhysics(),
               children: [
                 Column(
                   children: [
                     _buildMainMenuBar(),
                     _buildBanner(),
+                    _buildMainContent(),
+                    _buildFooter(),
                   ],
                 ),
               ],
@@ -53,119 +74,123 @@ class _HomePageState extends State<HomePage> {
   Widget _buildMainMenuBar() {
     return SizedBox(
       height: 80,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 60),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: Image.asset(
-                'assets/images/logo_gru_chang_no_bg.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-            Row(
+      child: Row(
+        children: [
+          const Expanded(flex: 1, child: Offstage()),
+          Expanded(
+            flex: 10,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildMenus(),
-                const SizedBox(width: 30),
-                DropdownButtonHideUnderline(
-                  child: DropdownButton2(
-                    isExpanded: true,
-                    isDense: true,
-                    items: items
-                        .map((String item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const SizedBox(width: 14),
-                                  const Icon(
-                                    Icons.language,
-                                    size: 18,
-                                    color: Colors.yellow,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 2),
-                                      child: Text(
-                                        item,
-                                        style: Theme.of(context).textTheme.small,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ))
-                        .toList(),
-                    value: selectedValue,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedValue = value;
-                      });
-                    },
-                    buttonStyleData: const ButtonStyleData(
-                      width: 120,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      padding: EdgeInsets.all(0)
-                    ),
-                    iconStyleData: const IconStyleData(
-                      icon: Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                      ),
-                      iconSize: 20,
-                      iconEnabledColor: Colors.yellow,
-                    ),
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Image.asset(
+                    'assets/images/logo_gru_chang_no_bg.png',
+                    fit: BoxFit.cover,
                   ),
-                )
+                ),
+                Row(
+                  children: [
+                    _buildMenus(),
+                    const SizedBox(width: 30),
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton2(
+                        isExpanded: true,
+                        isDense: true,
+                        items: items
+                            .map((String item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(width: 14),
+                                      const Icon(
+                                        Icons.language,
+                                        size: 18,
+                                        color: Colors.yellow,
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: Text(
+                                          item,
+                                          style: Theme.of(context).textTheme.small,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ))
+                            .toList(),
+                        value: selectedValue,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedValue = value;
+                          });
+                        },
+                        buttonStyleData: const ButtonStyleData(
+                          width: 120,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                          ),
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(padding: EdgeInsets.all(0)),
+                        iconStyleData: const IconStyleData(
+                          icon: Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                          ),
+                          iconSize: 20,
+                          iconEnabledColor: Colors.yellow,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMenus() {
-    List<String> listMenus = [
-      'Home',
-      'Antique',
-      'About Us',
-      'Contact Us',
-    ];
-
-    List<Widget> listWidgets = [];
-    for (String item in listMenus) {
-      listWidgets.addAll([
-        Text(item, style: Theme.of(context).textTheme.small),
-        const SizedBox(width: 30),
-      ]);
-    }
-
-    return Row(
-      children: listWidgets,
-    );
-  }
-
-  Widget _buildBanner() {
-    return SizedBox(
-      height: 480,
-      child: Stack(
-        children: [
-          _buildBannerBackground(),
-          _buildBannerContent(),
+          ),
+          const Expanded(flex: 1, child: Offstage()),
         ],
       ),
     );
   }
 
-  Widget _buildBannerBackground() {
+  Widget _buildMenus() {
+    return Row(
+      children: listMenuWidgets,
+    );
+  }
+
+  Widget _buildBanner() {
+    return SizedBox(
+      height: 500,
+      child: Stack(
+        children: [
+          _buildBackgroundImage(isUseGradient: true),
+          _buildBannerContent(),
+          _buildPresenter(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBackgroundImage({required bool isUseGradient}) {
+    BoxDecoration boxDecoration = BoxDecoration(
+      color: colorBackground.withOpacity(0.8),
+    );
+
+    if (isUseGradient) {
+      boxDecoration = BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            colorBackground,
+            colorBackground.withOpacity(0.6),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      );
+    }
+
     return Stack(
       children: [
         Positioned.fill(
@@ -176,16 +201,7 @@ class _HomePageState extends State<HomePage> {
         ),
         Positioned.fill(
           child: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  colorBackground,
-                  Colors.black54,
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
+            decoration: boxDecoration,
           ),
         ),
       ],
@@ -194,54 +210,84 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildBannerContent() {
     return Positioned.fill(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 80, left: 60, bottom: 40),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        children: [
+          const Expanded(flex: 1, child: Offstage()),
+          Expanded(
+            flex: 11,
+            child: Column(
               children: [
-                GoldGradientText(
-                  text: 'GruChang Thai Gold Smith',
-                  style: Theme.of(context).textTheme.xxlarger,
-                ),
-                GoldGradientText(
-                  text: 'Gold Jewelry',
-                  style: Theme.of(context).textTheme.xxlarger,
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'The Perfect Jewelry for you',
-                  style: Theme.of(context).textTheme.normal,
-                ),
-                const SizedBox(height: 20),
-                GoldGradientButton(
-                  text: 'Explore More',
-                  style: Theme.of(context).textTheme.normal.copyWith(
-                        color: colorNormalText,
+                const Expanded(flex: 3, child: Offstage()),
+                Expanded(
+                  flex: 10,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GoldGradientText(
+                            text: 'Guru-Chang Antique',
+                            style: Theme.of(context).textTheme.xxlarger,
+                          ),
+                          GoldGradientText(
+                            text: 'Gold Jewelry',
+                            style: Theme.of(context).textTheme.xxlarger,
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'The Perfect Jewelry for you',
+                            style: Theme.of(context).textTheme.normal,
+                          ),
+                          const SizedBox(height: 20),
+                          GoldGradientButton(
+                            text: 'Explore More',
+                            style: Theme.of(context).textTheme.normal.copyWith(
+                                  color: colorNormalText,
+                                ),
+                          ),
+                        ],
                       ),
+                      Row(
+                        children: [
+                          _buildPhoneNumberSection(phoneNumber: '083-718-8850'),
+                          const SizedBox(width: 20),
+                          _buildPhoneNumberSection(phoneNumber: '083-459-7773'),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
+                const Expanded(flex: 1, child: Offstage()),
               ],
             ),
-            Row(
-              children: [
-                _buildPhoneNumberSection(phoneNumber: '083-718-8850'),
-                const SizedBox(width: 20),
-                _buildPhoneNumberSection(phoneNumber: '083-459-7773'),
-              ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPresenter() {
+    return Positioned.fill(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+            flex: 11,
+            child: Image.asset(
+              'assets/images/image_presenter.png',
+              alignment: Alignment.bottomRight,
             ),
-          ],
-        ),
+          ),
+          const Expanded(flex: 1, child: Offstage()),
+        ],
       ),
     );
   }
 
   Widget _buildPhoneNumberSection({required String phoneNumber}) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const GoldGradientContainer(
           child: Icon(
@@ -255,6 +301,184 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.only(top: 4),
           child: GoldGradientText(
             text: phoneNumber,
+            style: Theme.of(context).textTheme.normal,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMainContent() {
+    return Container(
+      color: Colors.transparent,
+      height: 200,
+    );
+  }
+
+  Widget _buildFooter() {
+    return SizedBox(
+      height: 400,
+      child: Stack(
+        children: [
+          _buildBackgroundImage(isUseGradient: false),
+          _buildFooterContent(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFooterContent() {
+    Widget spacing = const Expanded(flex: 1, child: Offstage());
+
+    return Row(
+      children: [
+        spacing,
+        Expanded(
+          flex: 10,
+          child: Column(
+            children: [
+              spacing,
+              Expanded(
+                flex: 10,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Image.asset(
+                                  'assets/images/logo_gru_chang_no_bg.png',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Expanded(child: Container()),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Text('Guru-Chang Antique', style: Theme.of(context).textTheme.normal),
+                          const SizedBox(height: 10),
+                          _buildIconText(Icons.home_work, 'The Old Siam Plaza, 2nd Floor, Zone Silk.'),
+                          const SizedBox(height: 10),
+                          _buildIconText(Icons.phone, '083-718-8850'),
+                          const SizedBox(height: 10),
+                          _buildIconText(Icons.phone, '083-459-7773'),
+                          const SizedBox(height: 10),
+                        ],
+                      ),
+                    ),
+                    spacing,
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: listMenuWidgets,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    spacing,
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: listMenuWidgets,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    spacing,
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: listMenuWidgets,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    spacing,
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: listMenuWidgets,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    const Divider(thickness: 0.2),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Copyright 2023 GruChangThaiGoldSmith.Com',
+                            style: Theme.of(context).textTheme.smaller.copyWith(color: Colors.grey),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Row(
+                              children: [
+                                Image.asset('assets/images/icon_facebook.png'),
+                                const SizedBox(width: 15),
+                                Image.asset('assets/images/icon_line.png'),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        spacing,
+      ],
+    );
+  }
+
+  Widget _buildIconText(IconData icon, String text) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          icon,
+          size: 18,
+          color: Colors.yellow,
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            text,
             style: Theme.of(context).textTheme.normal,
           ),
         ),
