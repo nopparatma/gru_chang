@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildBanner() {
     return SizedBox(
-      height: 700,
+      height: 660,
       child: Stack(
         children: [
           _buildBackgroundImage(isUseGradient: true),
@@ -363,6 +363,7 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 flex: 10,
                 child: GridView.count(
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   crossAxisCount: 3,
                   mainAxisSpacing: 50,
