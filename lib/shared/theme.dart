@@ -32,4 +32,11 @@ extension CustomTextStyles on TextTheme {
     fontSize: 36,
   );
 
+  TextStyle get xxxlarger => const TextStyle(
+    fontSize: 42,
+  );
+
+  TextStyle get xxxxlarger => const TextStyle(
+    fontSize: 48,
+  );
 }

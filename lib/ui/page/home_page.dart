@@ -1,10 +1,17 @@
+import 'dart:async';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:gru_chang/app/app_constant.dart';
+import 'package:gru_chang/app/app_resource.dart';
 import 'package:gru_chang/shared/colors.dart';
 import 'package:gru_chang/shared/theme.dart';
+import 'package:gru_chang/ui/widget/gold_gradient_box_item.dart';
 import 'package:gru_chang/ui/widget/gold_gradient_button.dart';
 import 'package:gru_chang/ui/widget/gold_gradient_container.dart';
 import 'package:gru_chang/ui/widget/gold_gradient_text.dart';
+import 'package:gru_chang/utils/language_util.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,32 +22,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<String> items = [
-    'English',
-    'ไทย',
+  final List<Map<String, String>> items = [
+    {'value': 'th', 'name': 'ไทย', 'icon': 'assets/images/icon_thai.png'},
+    {'value': 'en', 'name': 'English', 'icon': 'assets/images/icon_english.png'},
   ];
 
   List<String> listMenus = [
-    'Home',
+    AppResource.home,
     'Antique',
     'About Us',
     'Contact Us',
   ];
+
+  late final Timer timer;
+
+  final values = [
+    'assets/images/image_presenter2.png',
+    'assets/images/image_presenter3.png',
+    'assets/images/image_presenter4.png',
+  ];
+  int _index = 0;
 
   late String? selectedValue;
   late List<Widget> listMenuWidgets = [];
 
   @override
   void initState() {
-    selectedValue = items[0];
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      for (String item in listMenus) {
-        listMenuWidgets.addAll([
-          Text(item, style: Theme.of(context).textTheme.small),
-          const SizedBox(width: 30),
-        ]);
-      }
+    selectedValue = items.first['value'];
+    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      setState(() => _index++);
     });
 
     super.initState();
@@ -98,21 +108,20 @@ class _HomePageState extends State<HomePage> {
                         isExpanded: true,
                         isDense: true,
                         items: items
-                            .map((String item) => DropdownMenuItem<String>(
-                                  value: item,
+                            .map((item) => DropdownMenuItem<String>(
+                                  value: item['value'],
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       const SizedBox(width: 14),
-                                      const Icon(
-                                        Icons.language,
-                                        size: 18,
-                                        color: Colors.yellow,
+                                      Image.asset(
+                                        item['icon'] ?? AppConstant.emptyString,
+                                        height: 20,
                                       ),
                                       const SizedBox(width: 10),
                                       Expanded(
                                         child: Text(
-                                          item,
+                                          item['name'] ?? AppConstant.emptyString,
                                           style: Theme.of(context).textTheme.small,
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -125,6 +134,7 @@ class _HomePageState extends State<HomePage> {
                         onChanged: (value) {
                           setState(() {
                             selectedValue = value;
+                            LanguageUtil.changeLanguage(context, selectedValue);
                           });
                         },
                         buttonStyleData: const ButtonStyleData(
@@ -155,8 +165,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildMenus() {
+    List<Widget> listWidgets = [];
+    for (String item in listMenus) {
+      listWidgets.addAll([
+        Text(item.tr(), style: Theme.of(context).textTheme.small),
+        const SizedBox(width: 30),
+      ]);
+    }
+
     return Row(
-      children: listMenuWidgets,
+      children: listWidgets,
     );
   }
 
@@ -229,11 +247,11 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           GoldGradientText(
                             text: 'Guru-Chang Antique',
-                            style: Theme.of(context).textTheme.xxlarger,
+                            style: Theme.of(context).textTheme.xxxxlarger,
                           ),
                           GoldGradientText(
                             text: 'Gold Jewelry',
-                            style: Theme.of(context).textTheme.xxlarger,
+                            style: Theme.of(context).textTheme.xxxxlarger,
                           ),
                           const SizedBox(height: 10),
                           Text(
@@ -272,12 +290,27 @@ class _HomePageState extends State<HomePage> {
     return Positioned.fill(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Expanded(
             flex: 11,
-            child: Image.asset(
-              'assets/images/image_presenter.png',
-              alignment: Alignment.bottomRight,
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 2000),
+              switchInCurve: Curves.easeIn,
+              switchOutCurve: Curves.easeOut,
+              transitionBuilder: (Widget image, Animation<double> animation) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: image,
+                );
+              },
+              child: Align(
+                key: UniqueKey(),
+                alignment: Alignment.bottomRight,
+                child: Image.asset(
+                  values[_index % values.length],
+                ),
+              ),
             ),
           ),
           const Expanded(flex: 1, child: Offstage()),
@@ -309,9 +342,40 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildMainContent() {
-    return Container(
-      color: Colors.transparent,
-      height: 200,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 50),
+      child: Column(
+        children: [
+          GoldGradientText(
+            text: AppResource.catalog.tr(),
+            style: Theme.of(context).textTheme.xxlarger,
+          ),
+          const SizedBox(height: 50),
+          Row(
+            children: [
+              const Expanded(flex: 1, child: Offstage()),
+              Expanded(
+                flex: 10,
+                child: GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 50,
+                  crossAxisSpacing: 50,
+                  children: const [
+                    GoldGradientBoxItem(),
+                    GoldGradientBoxItem(),
+                    GoldGradientBoxItem(),
+                    GoldGradientBoxItem(),
+                    GoldGradientBoxItem(),
+                    GoldGradientBoxItem(),
+                  ],
+                ),
+              ),
+              const Expanded(flex: 1, child: Offstage()),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

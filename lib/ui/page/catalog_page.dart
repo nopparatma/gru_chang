@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:gru_chang/app/app_string.dart';
+import 'package:gru_chang/app/app_resource.dart';
 import 'package:gru_chang/ui/router.dart';
-import 'package:gru_chang/utils/locale_util.dart';
+import 'package:gru_chang/utils/language_util.dart';
 
 class CatalogPage extends StatefulWidget {
   const CatalogPage({super.key});
@@ -18,7 +18,7 @@ class _CatalogPageState extends State<CatalogPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(AppString.catalogPage.tr()),
+        title: Text(AppResource.catalog.tr()),
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -27,7 +27,7 @@ class _CatalogPageState extends State<CatalogPage> {
             heroTag: 'TEST1',
             onPressed: () {
               setState(() {
-                LocaleUtil.changeLanguage(context);
+                // LanguageUtil.changeLanguage(context);
               });
             },
           ),
