@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Map<String, String>> items = [
+  final List<Map<String, String>> languageItems = [
     {'value': 'th', 'name': 'ไทย', 'icon': 'assets/images/icon_thai.png'},
     {'value': 'en', 'name': 'English', 'icon': 'assets/images/icon_english.png'},
   ];
@@ -36,21 +36,27 @@ class _HomePageState extends State<HomePage> {
 
   late final Timer timer;
 
-  final values = [
+  final presenterValues = [
     'assets/images/image_presenter2.png',
     'assets/images/image_presenter3.png',
     'assets/images/image_presenter4.png',
   ];
   int _index = 0;
 
-  late String? selectedValue;
+  late String? selectedLanguageValue;
   late List<Widget> listMenuWidgets = [];
 
   @override
   void initState() {
-    selectedValue = items.first['value'];
+    selectedLanguageValue = languageItems.first['value'];
+
     timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       setState(() => _index++);
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Locale? currentLocale = EasyLocalization.of(context)?.currentLocale;
+      selectedLanguageValue = currentLocale?.languageCode;
     });
 
     super.initState();
@@ -107,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                       child: DropdownButton2(
                         isExpanded: true,
                         isDense: true,
-                        items: items
+                        items: languageItems
                             .map((item) => DropdownMenuItem<String>(
                                   value: item['value'],
                                   child: Row(
@@ -130,11 +136,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ))
                             .toList(),
-                        value: selectedValue,
+                        value: selectedLanguageValue,
                         onChanged: (value) {
                           setState(() {
-                            selectedValue = value;
-                            LanguageUtil.changeLanguage(context, selectedValue);
+                            selectedLanguageValue = value;
+                            LanguageUtil.changeLanguage(context, selectedLanguageValue);
                           });
                         },
                         buttonStyleData: const ButtonStyleData(
@@ -308,7 +314,7 @@ class _HomePageState extends State<HomePage> {
                 key: UniqueKey(),
                 alignment: Alignment.bottomRight,
                 child: Image.asset(
-                  values[_index % values.length],
+                  presenterValues[_index % presenterValues.length],
                 ),
               ),
             ),
