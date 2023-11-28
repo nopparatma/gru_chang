@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildBanner() {
     return SizedBox(
-      height: 500,
+      height: 700,
       child: Stack(
         children: [
           _buildBackgroundImage(isUseGradient: true),
@@ -253,11 +253,11 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           GoldGradientText(
                             text: 'Guru-Chang Antique',
-                            style: Theme.of(context).textTheme.xxxxlarger,
+                            style: Theme.of(context).textTheme.xExtraLarger,
                           ),
                           GoldGradientText(
                             text: 'Gold Jewelry',
-                            style: Theme.of(context).textTheme.xxxxlarger,
+                            style: Theme.of(context).textTheme.xExtraLarger,
                           ),
                           const SizedBox(height: 10),
                           Text(
@@ -354,7 +354,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           GoldGradientText(
             text: AppResource.catalog.tr(),
-            style: Theme.of(context).textTheme.xxlarger,
+            style: Theme.of(context).textTheme.xxLarger,
           ),
           const SizedBox(height: 50),
           Row(

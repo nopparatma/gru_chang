@@ -24,19 +24,23 @@ extension CustomTextStyles on TextTheme {
     fontSize: 24,
   );
 
-  TextStyle get xlarger => const TextStyle(
+  TextStyle get xLarger => const TextStyle(
     fontSize: 30,
   );
 
-  TextStyle get xxlarger => const TextStyle(
+  TextStyle get xxLarger => const TextStyle(
     fontSize: 36,
   );
 
-  TextStyle get xxxlarger => const TextStyle(
+  TextStyle get xxxLarger => const TextStyle(
     fontSize: 42,
   );
 
-  TextStyle get xxxxlarger => const TextStyle(
+  TextStyle get extraLarger => const TextStyle(
     fontSize: 48,
+  );
+
+  TextStyle get xExtraLarger => const TextStyle(
+    fontSize: 54,
   );
 }
