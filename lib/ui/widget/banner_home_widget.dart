@@ -36,6 +36,12 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
   }
 
   @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return _buildBanner();
   }
