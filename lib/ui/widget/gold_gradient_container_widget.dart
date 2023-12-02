@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gru_chang/shared/colors.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-class GoldGradientContainer extends StatelessWidget {
+class GoldGradientContainerWidget extends StatelessWidget {
   final Widget child;
 
-  const GoldGradientContainer({
+  const GoldGradientContainerWidget({
     required this.child,
     super.key,
   });

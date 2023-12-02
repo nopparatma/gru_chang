@@ -5,9 +5,9 @@ import 'package:gru_chang/shared/colors.dart';
 import 'package:gru_chang/shared/theme.dart';
 
 import 'background_image_widget.dart';
-import 'gold_gradient_button.dart';
-import 'gold_gradient_container.dart';
-import 'gold_gradient_text.dart';
+import 'gold_gradient_button_widget.dart';
+import 'gold_gradient_container_widget.dart';
+import 'gold_gradient_text_widget.dart';
 
 class BannerHomeWidget extends StatefulWidget {
   const BannerHomeWidget({super.key});
@@ -72,11 +72,11 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          GoldGradientText(
+                          GoldGradientTextWidget(
                             text: 'Guru-Chang Antique',
                             style: Theme.of(context).textTheme.xExtraLarger,
                           ),
-                          GoldGradientText(
+                          GoldGradientTextWidget(
                             text: 'Gold Jewelry',
                             style: Theme.of(context).textTheme.xExtraLarger,
                           ),
@@ -86,7 +86,7 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
                             style: Theme.of(context).textTheme.normal,
                           ),
                           const SizedBox(height: 20),
-                          GoldGradientButton(
+                          GoldGradientButtonWidget(
                             text: 'Explore More',
                             style: Theme.of(context).textTheme.normal.copyWith(
                                   color: colorNormalText,
@@ -149,7 +149,7 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
   Widget _buildPhoneNumberSection({required String phoneNumber}) {
     return Row(
       children: [
-        const GoldGradientContainer(
+        const GoldGradientContainerWidget(
           child: Icon(
             Icons.phone,
             color: colorNormalText,
@@ -159,7 +159,7 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
         const SizedBox(width: 10),
         Padding(
           padding: const EdgeInsets.only(top: 4),
-          child: GoldGradientText(
+          child: GoldGradientTextWidget(
             text: phoneNumber,
             style: Theme.of(context).textTheme.normal,
           ),

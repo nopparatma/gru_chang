@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gru_chang/ui/widget/gold_gradient_container.dart';
+import 'package:gru_chang/ui/widget/gold_gradient_container_widget.dart';
 
-class GoldGradientButton extends StatelessWidget {
+class GoldGradientButtonWidget extends StatelessWidget {
   final String text;
   final TextStyle style;
 
-  const GoldGradientButton({
+  const GoldGradientButtonWidget({
     required this.text,
     required this.style,
     super.key,
@@ -13,7 +13,7 @@ class GoldGradientButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GoldGradientContainer(
+    return GoldGradientContainerWidget(
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,

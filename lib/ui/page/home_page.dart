@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gru_chang/app/app_resource.dart';
 import 'package:gru_chang/shared/theme.dart';
 import 'package:gru_chang/ui/widget/background_image_widget.dart';
-import 'package:gru_chang/ui/widget/gold_gradient_box_item.dart';
-import 'package:gru_chang/ui/widget/gold_gradient_text.dart';
+import 'package:gru_chang/ui/widget/gold_gradient_box_item_widget.dart';
+import 'package:gru_chang/ui/widget/gold_gradient_text_widget.dart';
 import 'package:gru_chang/ui/widget/banner_home_widget.dart';
 import 'package:gru_chang/ui/widget/menu_top_bar_widget.dart';
 
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.symmetric(vertical: 50),
       child: Column(
         children: [
-          GoldGradientText(
+          GoldGradientTextWidget(
             text: AppResource.catalog.tr(),
             style: Theme.of(context).textTheme.xxLarger,
           ),
@@ -67,12 +67,12 @@ class _HomePageState extends State<HomePage> {
                   mainAxisSpacing: 50,
                   crossAxisSpacing: 50,
                   children: const [
-                    GoldGradientBoxItem(),
-                    GoldGradientBoxItem(),
-                    GoldGradientBoxItem(),
-                    GoldGradientBoxItem(),
-                    GoldGradientBoxItem(),
-                    GoldGradientBoxItem(),
+                    GoldGradientBoxItemWidget(),
+                    GoldGradientBoxItemWidget(),
+                    GoldGradientBoxItemWidget(),
+                    GoldGradientBoxItemWidget(),
+                    GoldGradientBoxItemWidget(),
+                    GoldGradientBoxItemWidget(),
                   ],
                 ),
               ),

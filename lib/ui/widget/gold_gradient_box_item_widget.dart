@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:gru_chang/shared/colors.dart';
 import 'package:gru_chang/shared/theme.dart';
-import 'package:gru_chang/ui/widget/gold_gradient_button.dart';
+import 'package:gru_chang/ui/widget/gold_gradient_button_widget.dart';
 
-class GoldGradientBoxItem extends StatelessWidget {
-  const GoldGradientBoxItem({super.key});
+class GoldGradientBoxItemWidget extends StatelessWidget {
+  const GoldGradientBoxItemWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class GoldGradientBoxItem extends StatelessWidget {
                       child: Container(
                         height: productCodeHeight,
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: GoldGradientButton(
+                        child: GoldGradientButtonWidget(
                           text: 'Product Code: PO-101',
                           style: Theme.of(context).textTheme.normal.copyWith(
                                 color: colorNormalText,

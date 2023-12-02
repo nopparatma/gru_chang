@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gru_chang/shared/colors.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-class GoldGradientText extends StatelessWidget {
+class GoldGradientTextWidget extends StatelessWidget {
   final String text;
   final TextStyle style;
   final GradientType gradientType;
 
-  const GoldGradientText({
+  const GoldGradientTextWidget({
     required this.text,
     required this.style,
     this.gradientType = GradientType.linear,
