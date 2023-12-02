@@ -13,21 +13,27 @@ class GoldGradientButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GoldGradientContainerWidget(
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-          textStyle: style,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+    return Row(
+      children: [
+        Expanded(
+          child: GoldGradientContainerWidget(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+                textStyle: style,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+              ),
+              child: Text(
+                text,
+                style: style,
+                textAlign: TextAlign.center,
+              ),
+              onPressed: () {},
+            ),
+          ),
         ),
-        child: Text(
-          text,
-          style: style,
-          textAlign: TextAlign.center,
-        ),
-        onPressed: () {},
-      ),
+      ],
     );
   }
 }

@@ -22,9 +22,9 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
 
   List<String> listMenus = [
     AppResource.home,
-    'Antique',
-    'About Us',
-    'Contact Us',
+    AppResource.antique,
+    AppResource.aboutUs,
+    AppResource.contactUs,
   ];
 
   late String? selectedLanguageValue;
@@ -89,7 +89,7 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
                                         item['icon'] ?? AppConstant.emptyString,
                                         height: 20,
                                       ),
-                                      const SizedBox(width: 10),
+                                      const SizedBox(width: 18),
                                       Expanded(
                                         child: Text(
                                           item['name'] ?? AppConstant.emptyString,

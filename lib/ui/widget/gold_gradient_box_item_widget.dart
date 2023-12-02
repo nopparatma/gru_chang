@@ -23,7 +23,7 @@ class GoldGradientBoxItemWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: const GradientBoxBorder(
                     gradient: LinearGradient(
-                      colors: goldGradientColors,
+                      colors: colorGoldGradients,
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
@@ -55,7 +55,7 @@ class GoldGradientBoxItemWidget extends StatelessWidget {
                         child: GoldGradientButtonWidget(
                           text: 'Product Code: PO-101',
                           style: Theme.of(context).textTheme.normal.copyWith(
-                                color: colorNormalText,
+                                color: colorBlack,
                             fontWeight: FontWeight.bold,
                               ),
                         ),

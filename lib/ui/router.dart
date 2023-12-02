@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gru_chang/ui/page/catalog_page.dart';
+import 'package:gru_chang/ui/page/contact_us_page.dart';
 import 'package:gru_chang/ui/page/home_page.dart';
 
 class RoutePaths {
   static const String index = '/';
-  static const String homePage = '/home_page';
-  static const String catalogPage = '/catalog_page';
-  static const String aboutUsPage = '/about_us_page';
-  static const String contactUsPage = '/contact_us_page';
+  static const String homePage = '/home';
+  static const String catalogPage = '/catalog';
+  static const String aboutUsPage = '/about_us';
+  static const String contactUsPage = '/contact_us';
 }
 
 class WebRouter {
@@ -24,6 +25,11 @@ class WebRouter {
         return MaterialPageRoute(
           settings: settings,
           builder: (_) => const CatalogPage(),
+        );
+      case RoutePaths.contactUsPage:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const ContactUsPage(),
         );
       default:
         return MaterialPageRoute(

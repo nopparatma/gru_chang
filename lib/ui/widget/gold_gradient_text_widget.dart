@@ -22,7 +22,7 @@ class GoldGradientTextWidget extends StatelessWidget {
       textAlign: TextAlign.center,
       gradientType: gradientType,
       gradientDirection: GradientDirection.ltr,
-      colors: goldGradientColors,
+      colors: colorGoldGradients,
     );
   }
 }

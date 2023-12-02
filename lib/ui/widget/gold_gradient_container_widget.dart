@@ -16,7 +16,7 @@ class GoldGradientContainerWidget extends StatelessWidget {
       padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: goldGradientColors,
+          colors: colorGoldGradients,
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),

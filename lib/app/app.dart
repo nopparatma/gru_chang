@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gru_chang/shared/colors.dart';
 import 'package:gru_chang/shared/ui_config.dart';
+import 'package:gru_chang/ui/page/contact_us_page.dart';
 import 'package:gru_chang/ui/page/home_page.dart';
 import 'package:gru_chang/ui/router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -100,7 +101,7 @@ class _MainWebState extends State<MainWeb> {
         ),
         navigatorKey: Catcher.navigatorKey,
         onGenerateRoute: WebRouter.generateRoute,
-        home: const HomePage(),
+        initialRoute: RoutePaths.contactUsPage,
       ),
     );
   }

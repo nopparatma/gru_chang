@@ -92,11 +92,12 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
                             style: Theme.of(context).textTheme.normal,
                           ),
                           const SizedBox(height: 20),
-                          GoldGradientButtonWidget(
-                            text: 'Explore More',
-                            style: Theme.of(context).textTheme.normal.copyWith(
-                                  color: colorNormalText,
-                                ),
+                          SizedBox(
+                            width: 200,
+                            child: GoldGradientButtonWidget(
+                              text: 'Explore More',
+                              style: Theme.of(context).textTheme.normal.copyWith(color: colorBlack),
+                            ),
                           ),
                         ],
                       ),
@@ -158,7 +159,7 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
         const GoldGradientContainerWidget(
           child: Icon(
             Icons.phone,
-            color: colorNormalText,
+            color: colorBlack,
             size: 20,
           ),
         ),
