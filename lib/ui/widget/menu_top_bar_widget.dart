@@ -93,7 +93,7 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
                                       Expanded(
                                         child: Text(
                                           item['name'] ?? AppConstant.emptyString,
-                                          style: Theme.of(context).textTheme.small,
+                                          style: Theme.of(context).textTheme.normal,
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
@@ -139,7 +139,7 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
     List<Widget> listWidgets = [];
     for (String item in listMenus) {
       listWidgets.addAll([
-        Text(item.tr(), style: Theme.of(context).textTheme.small),
+        Text(item.tr(), style: Theme.of(context).textTheme.normal),
         const SizedBox(width: 30),
       ]);
     }
