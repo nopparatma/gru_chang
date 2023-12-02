@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gru_chang/app/app_constant.dart';
-import 'package:gru_chang/app/app_resource.dart';
 import 'package:gru_chang/utils/string_util.dart';
 
 class LanguageUtil {

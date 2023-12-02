@@ -56,7 +56,7 @@ class GoldGradientBoxItemWidget extends StatelessWidget {
                           text: 'Product Code: PO-101',
                           style: Theme.of(context).textTheme.normal.copyWith(
                                 color: colorBlack,
-                            fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.bold,
                               ),
                         ),
                       ),

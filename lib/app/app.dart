@@ -6,8 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gru_chang/shared/colors.dart';
 import 'package:gru_chang/shared/ui_config.dart';
-import 'package:gru_chang/ui/page/contact_us_page.dart';
-import 'package:gru_chang/ui/page/home_page.dart';
 import 'package:gru_chang/ui/router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -82,10 +80,10 @@ class _MainWebState extends State<MainWeb> {
             background: colorBackground,
           ),
           textTheme: Theme.of(context).textTheme.apply(
-            bodyColor: Colors.white,
-            displayColor: Colors.white,
-            fontFamily: appFontFamily,
-          ),
+                bodyColor: Colors.white,
+                displayColor: Colors.white,
+                fontFamily: appFontFamily,
+              ),
         ),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

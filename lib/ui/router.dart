@@ -13,7 +13,7 @@ class RoutePaths {
 
 class WebRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    Map<String, dynamic> arguments = Map<String, dynamic>.from(settings.arguments == null ? {} : settings.arguments as Map<String, dynamic>);
+    // Map<String, dynamic> arguments = Map<String, dynamic>.from(settings.arguments == null ? {} : settings.arguments as Map<String, dynamic>);
 
     switch (settings.name) {
       case RoutePaths.homePage:

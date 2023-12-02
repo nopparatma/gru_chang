@@ -1,7 +1,4 @@
-
-
 class StringUtil {
-
   static bool isNullOrEmpty(String? s) {
     if (s == null) {
       return true;

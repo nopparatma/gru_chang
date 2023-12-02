@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gru_chang/app/app_resource.dart';
 import 'package:gru_chang/ui/router.dart';
-import 'package:gru_chang/utils/language_util.dart';
 
 class CatalogPage extends StatefulWidget {
   const CatalogPage({super.key});
