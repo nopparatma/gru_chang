@@ -9,25 +9,25 @@ import 'package:gru_chang/ui/widget/custom_text_field_widget.dart';
 import 'package:gru_chang/ui/widget/gold_gradient_button_widget.dart';
 import 'package:gru_chang/ui/widget/header_widget.dart';
 
-class CatalogPage extends StatefulWidget {
-  const CatalogPage({super.key});
+class AboutUsPage extends StatefulWidget {
+  const AboutUsPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _CatalogPageState createState() => _CatalogPageState();
+  _AboutUsPageState createState() => _AboutUsPageState();
 }
 
-class _CatalogPageState extends State<CatalogPage> {
+class _AboutUsPageState extends State<AboutUsPage> {
   @override
   Widget build(BuildContext context) {
     return CommonLayout(
       isShowBodyByScroll: false,
-      menuRouteSelect: RoutePaths.catalogPage,
+      menuRouteSelect: RoutePaths.aboutUsPage,
       header: HeaderWidget(
-        title: AppResource.catalog.tr(),
+        title: AppResource.aboutUs.tr(),
         fromPage: AppResource.home.tr(),
       ),
-      name: AppResource.catalog.tr(),
+      name: AppResource.aboutUs.tr(),
       body: Container(),
     );
   }

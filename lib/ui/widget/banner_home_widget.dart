@@ -48,7 +48,7 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
 
   Widget _buildBanner() {
     return SizedBox(
-      height: 660,
+      height: MediaQuery.of(context).size.height * 0.99 - 80,
       child: Stack(
         children: [
           const BackgroundImageWidget(isUseGradient: true),

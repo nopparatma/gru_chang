@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gru_chang/ui/page/about_us_page.dart';
 import 'package:gru_chang/ui/page/catalog_page.dart';
 import 'package:gru_chang/ui/page/contact_us_page.dart';
 import 'package:gru_chang/ui/page/home_page.dart';
@@ -25,6 +26,11 @@ class WebRouter {
         return MaterialPageRoute(
           settings: settings,
           builder: (_) => const CatalogPage(),
+        );
+      case RoutePaths.aboutUsPage:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const AboutUsPage(),
         );
       case RoutePaths.contactUsPage:
         return MaterialPageRoute(

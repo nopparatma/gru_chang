@@ -4,10 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:gru_chang/app/app_constant.dart';
 import 'package:gru_chang/app/app_resource.dart';
 import 'package:gru_chang/shared/theme.dart';
+import 'package:gru_chang/ui/router.dart';
 import 'package:gru_chang/utils/language_util.dart';
 
+import 'gold_gradient_text_widget.dart';
+
 class MenuTopBarWidget extends StatefulWidget {
-  const MenuTopBarWidget({super.key});
+  final String menuRouteSelect;
+
+  const MenuTopBarWidget({super.key, required this.menuRouteSelect});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -19,12 +24,13 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
     {'value': 'th', 'name': 'ไทย', 'icon': 'assets/images/icon_thai.png'},
     {'value': 'en', 'name': 'English', 'icon': 'assets/images/icon_english.png'},
   ];
+  late Map<String, String> menuSelected;
 
-  List<String> listMenus = [
-    AppResource.home,
-    AppResource.antique,
-    AppResource.aboutUs,
-    AppResource.contactUs,
+  List<Map<String, String>> listMenus = [
+    {'name': AppResource.home, 'route': RoutePaths.homePage},
+    {'name': AppResource.antique, 'route': RoutePaths.catalogPage},
+    {'name': AppResource.aboutUs, 'route': RoutePaths.aboutUsPage},
+    {'name': AppResource.contactUs, 'route': RoutePaths.contactUsPage},
   ];
 
   late String? selectedLanguageValue;
@@ -32,6 +38,8 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
 
   @override
   void initState() {
+    menuSelected = listMenus.firstWhere((a) => a['route'] == widget.menuRouteSelect, orElse: () => listMenus.first);
+
     selectedLanguageValue = languageItems.first['value'];
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -109,7 +117,7 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
                           });
                         },
                         buttonStyleData: const ButtonStyleData(
-                          width: 120,
+                          width: 130,
                           decoration: BoxDecoration(
                             color: Colors.transparent,
                           ),
@@ -137,9 +145,17 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
 
   Widget _buildMenus() {
     List<Widget> listWidgets = [];
-    for (String item in listMenus) {
+    for (Map<String, String> item in listMenus) {
       listWidgets.addAll([
-        Text(item.tr(), style: Theme.of(context).textTheme.normal),
+        InkWell(
+          child: _buildText(item),
+          onTap: () {
+            setState(() {
+              menuSelected = item;
+              Navigator.pushNamed(context, menuSelected['route'] ?? AppConstant.emptyString);
+            });
+          },
+        ),
         const SizedBox(width: 30),
       ]);
     }
@@ -147,5 +163,16 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
     return Row(
       children: listWidgets,
     );
+  }
+
+  Widget _buildText(Map<String, String> item) {
+    if (item['name'] == menuSelected['name']) {
+      return GoldGradientTextWidget(
+        text: item['name']?.tr() ?? AppConstant.emptyString,
+        style: Theme.of(context).textTheme.normal,
+      );
+    }
+
+    return Text(item['name']?.tr() ?? AppConstant.emptyString, style: Theme.of(context).textTheme.normal);
   }
 }

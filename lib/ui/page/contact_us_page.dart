@@ -4,6 +4,7 @@ import 'package:gru_chang/app/app_resource.dart';
 import 'package:gru_chang/shared/colors.dart';
 import 'package:gru_chang/shared/theme.dart';
 import 'package:gru_chang/ui/common_layout.dart';
+import 'package:gru_chang/ui/router.dart';
 import 'package:gru_chang/ui/widget/custom_text_field_widget.dart';
 import 'package:gru_chang/ui/widget/gold_gradient_button_widget.dart';
 import 'package:gru_chang/ui/widget/header_widget.dart';
@@ -20,6 +21,8 @@ class _ContactUsPageState extends State<ContactUsPage> {
   @override
   Widget build(BuildContext context) {
     return CommonLayout(
+      isShowBodyByScroll: false,
+      menuRouteSelect: RoutePaths.contactUsPage,
       header: HeaderWidget(
         title: AppResource.contactUs.tr(),
         fromPage: AppResource.home.tr(),

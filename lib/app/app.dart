@@ -89,17 +89,17 @@ class _MainWebState extends State<MainWeb> {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         builder: (context, widget) => ResponsiveBreakpoints.builder(
-          child: BouncingScrollWrapper.builder(context, widget!),
+          child: widget!,
           breakpoints: [
             const Breakpoint(start: 0, end: 450, name: MOBILE),
-            const Breakpoint(start: 451, end: 800, name: TABLET),
-            const Breakpoint(start: 801, end: 1920, name: DESKTOP),
+            const Breakpoint(start: 451, end: 820, name: TABLET),
+            const Breakpoint(start: 821, end: 1920, name: DESKTOP),
             const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
           ],
         ),
         navigatorKey: Catcher.navigatorKey,
         onGenerateRoute: WebRouter.generateRoute,
-        initialRoute: RoutePaths.contactUsPage,
+        initialRoute: RoutePaths.homePage,
       ),
     );
   }

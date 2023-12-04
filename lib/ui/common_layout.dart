@@ -8,11 +8,15 @@ class CommonLayout extends StatefulWidget {
   final Widget header;
   final String name;
   final Widget body;
+  final bool isShowBodyByScroll;
+  final String menuRouteSelect;
 
   const CommonLayout({
     required this.header,
     required this.name,
     required this.body,
+    required this.isShowBodyByScroll,
+    required this.menuRouteSelect,
     super.key,
   });
 
@@ -22,7 +26,22 @@ class CommonLayout extends StatefulWidget {
 }
 
 class _CommonLayoutState extends State<CommonLayout> {
+  late ScrollController _scrollController;
+  late double pixels = 0.0;
+
   late List<Widget> listMenuWidgets = [];
+
+  @override
+  void initState() {
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      setState(() {
+        pixels = _scrollController.position.pixels;
+      });
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +51,19 @@ class _CommonLayoutState extends State<CommonLayout> {
         children: [
           Expanded(
             child: ListView(
+              controller: _scrollController,
               physics: const ClampingScrollPhysics(),
               children: [
-                const MenuTopBarWidget(),
+                MenuTopBarWidget(menuRouteSelect: widget.menuRouteSelect),
                 widget.header,
-                MainContentWidget(
-                  title: widget.name,
-                  content: widget.body,
+                AnimatedOpacity(
+                  opacity: pixels >= (widget.isShowBodyByScroll ? 100 : 0) ? 1.0 : 0.0,
+                  duration: const Duration(seconds: 3),
+                  curve: Curves.fastOutSlowIn,
+                  child: MainContentWidget(
+                    title: widget.name,
+                    content: widget.body,
+                  ),
                 ),
                 _buildFooter(),
               ],
