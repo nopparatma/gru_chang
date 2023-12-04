@@ -43,8 +43,10 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
     selectedLanguageValue = languageItems.first['value'];
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Locale? currentLocale = EasyLocalization.of(context)?.currentLocale;
-      selectedLanguageValue = currentLocale?.languageCode;
+      setState(() {
+        Locale? currentLocale = EasyLocalization.of(context)?.currentLocale;
+        selectedLanguageValue = currentLocale?.languageCode;
+      });
     });
 
     super.initState();

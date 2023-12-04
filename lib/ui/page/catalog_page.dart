@@ -24,10 +24,10 @@ class _CatalogPageState extends State<CatalogPage> {
       isShowBodyByScroll: false,
       menuRouteSelect: RoutePaths.catalogPage,
       header: HeaderWidget(
-        title: AppResource.catalog.tr(),
+        title: AppResource.antique.tr(),
         fromPage: AppResource.home.tr(),
       ),
-      name: AppResource.catalog.tr(),
+      name: AppResource.antique.tr(),
       body: Container(),
     );
   }

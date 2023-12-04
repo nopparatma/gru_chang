@@ -41,7 +41,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
         children: [
           GoldGradientTextWidget(
             text: widget.title,
-            style: Theme.of(context).textTheme.xxxLarger,
+            style: Theme.of(context).textTheme.xLarger,
           ),
           const SizedBox(height: 10),
           Row(
