@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gru_chang/shared/colors.dart';
 import 'package:gru_chang/shared/theme.dart';
+import 'package:responsive_framework/responsive_breakpoints.dart';
 
 import 'background_image_widget.dart';
 import 'gold_gradient_button_widget.dart';
@@ -43,23 +44,43 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildBanner();
+    return _buildContent();
   }
 
-  Widget _buildBanner() {
+  Widget _buildContent() {
+    if (ResponsiveBreakpoints.of(context).isDesktop) {
+      return _buildDesktopView();
+    }
+
+    return _buildMobileView();
+  }
+
+  Widget _buildDesktopView() {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.99 - 80,
       child: Stack(
         children: [
           const BackgroundImageWidget(isUseGradient: true),
-          _buildBannerContent(),
-          _buildPresenter(),
+          _buildDesktopViewBannerContent(),
+          _buildDesktopViewPresenter(),
         ],
       ),
     );
   }
 
-  Widget _buildBannerContent() {
+  Widget _buildMobileView() {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.99 - 80,
+      child: Stack(
+        children: [
+          const BackgroundImageWidget(isUseGradient: true),
+          _buildMobileViewBannerContent(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDesktopViewBannerContent() {
     return Positioned.fill(
       child: Row(
         children: [
@@ -120,7 +141,67 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
     );
   }
 
-  Widget _buildPresenter() {
+  Widget _buildMobileViewBannerContent() {
+    return Positioned.fill(
+      child: Row(
+        children: [
+          const Expanded(flex: 1, child: Offstage()),
+          Expanded(
+            flex: 10,
+            child: Column(
+              children: [
+                const Expanded(flex: 1, child: Offstage()),
+                Expanded(
+                  flex: 30,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GoldGradientTextWidget(
+                        text: 'Guru-Chang Antique',
+                        style: Theme.of(context).textTheme.extraLarger,
+                      ),
+                      GoldGradientTextWidget(
+                        text: 'Gold Jewelry',
+                        style: Theme.of(context).textTheme.extraLarger,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'The Perfect Jewelry for you',
+                        style: Theme.of(context).textTheme.normal,
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        width: 200,
+                        child: GoldGradientButtonWidget(
+                          text: 'Explore More',
+                          style: Theme.of(context).textTheme.normal.copyWith(color: colorBlack),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildPhoneNumberSection(phoneNumber: '083-718-8850'),
+                          const SizedBox(width: 10),
+                          _buildPhoneNumberSection(phoneNumber: '083-459-7773'),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      _buildMobileViewPresenter(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Expanded(flex: 1, child: Offstage()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDesktopViewPresenter() {
     return Positioned.fill(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -149,6 +230,30 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
           ),
           const Expanded(flex: 1, child: Offstage()),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMobileViewPresenter() {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.3,
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 2000),
+        switchInCurve: Curves.easeIn,
+        switchOutCurve: Curves.easeOut,
+        transitionBuilder: (Widget image, Animation<double> animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: image,
+          );
+        },
+        child: Align(
+          key: UniqueKey(),
+          alignment: Alignment.bottomCenter,
+          child: Image.asset(
+            presenterValues[_index % presenterValues.length],
+          ),
+        ),
       ),
     );
   }

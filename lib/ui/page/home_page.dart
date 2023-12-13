@@ -16,6 +16,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Widget> listWidgets = const [
+    GoldGradientBoxItemWidget(),
+    GoldGradientBoxItemWidget(),
+    GoldGradientBoxItemWidget(),
+    GoldGradientBoxItemWidget(),
+    GoldGradientBoxItemWidget(),
+    GoldGradientBoxItemWidget(),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -25,34 +34,44 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)) {
-          return Container(
-            color: Colors.green,
-          );
-        }
-
         return CommonLayout(
           isShowBodyByScroll: true,
           menuRouteSelect: RoutePaths.homePage,
           header: const BannerHomeWidget(),
           name: AppResource.catalog.tr(),
-          body: GridView.count(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            crossAxisCount: 3,
-            mainAxisSpacing: 50,
-            crossAxisSpacing: 50,
-            children: const [
-              GoldGradientBoxItemWidget(),
-              GoldGradientBoxItemWidget(),
-              GoldGradientBoxItemWidget(),
-              GoldGradientBoxItemWidget(),
-              GoldGradientBoxItemWidget(),
-              GoldGradientBoxItemWidget(),
-            ],
-          ),
+          body: _buildContent(),
         );
       },
+    );
+  }
+
+  Widget _buildContent() {
+    if (ResponsiveBreakpoints.of(context).isDesktop) {
+      return _buildDesktopView();
+    }
+
+    return _buildMobileView();
+  }
+
+  Widget _buildDesktopView() {
+    return GridView.count(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      crossAxisCount: 3,
+      mainAxisSpacing: 50,
+      crossAxisSpacing: 50,
+      children: listWidgets,
+    );
+  }
+
+  Widget _buildMobileView() {
+    return GridView.count(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      crossAxisCount: 1,
+      mainAxisSpacing: 25,
+      crossAxisSpacing: 25,
+      children: listWidgets,
     );
   }
 }

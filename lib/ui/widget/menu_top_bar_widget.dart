@@ -5,7 +5,9 @@ import 'package:gru_chang/app/app_constant.dart';
 import 'package:gru_chang/app/app_resource.dart';
 import 'package:gru_chang/shared/theme.dart';
 import 'package:gru_chang/ui/router.dart';
+import 'package:gru_chang/utils/dialog_util.dart';
 import 'package:gru_chang/utils/language_util.dart';
+import 'package:responsive_framework/responsive_breakpoints.dart';
 
 import 'gold_gradient_text_widget.dart';
 
@@ -59,10 +61,14 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildMainMenuBar();
+    if (ResponsiveBreakpoints.of(context).isDesktop) {
+      return _buildDesktopView();
+    }
+
+    return _buildMobileView();
   }
 
-  Widget _buildMainMenuBar() {
+  Widget _buildDesktopView() {
     return SizedBox(
       height: 80,
       child: Row(
@@ -82,58 +88,9 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
                 ),
                 Row(
                   children: [
-                    _buildMenus(),
+                    _buildDesktopMenus(),
                     const SizedBox(width: 30),
-                    DropdownButtonHideUnderline(
-                      child: DropdownButton2(
-                        isExpanded: true,
-                        isDense: true,
-                        items: languageItems
-                            .map((item) => DropdownMenuItem<String>(
-                                  value: item['value'],
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(width: 14),
-                                      Image.asset(
-                                        item['icon'] ?? AppConstant.emptyString,
-                                        height: 20,
-                                      ),
-                                      const SizedBox(width: 18),
-                                      Expanded(
-                                        child: Text(
-                                          item['name'] ?? AppConstant.emptyString,
-                                          style: Theme.of(context).textTheme.normal,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ))
-                            .toList(),
-                        value: selectedLanguageValue,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedLanguageValue = value;
-                            LanguageUtil.changeLanguage(context, selectedLanguageValue);
-                          });
-                        },
-                        buttonStyleData: const ButtonStyleData(
-                          width: 130,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                          ),
-                        ),
-                        menuItemStyleData: const MenuItemStyleData(padding: EdgeInsets.all(0)),
-                        iconStyleData: const IconStyleData(
-                          icon: Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                          ),
-                          iconSize: 20,
-                          iconEnabledColor: Colors.yellow,
-                        ),
-                      ),
-                    )
+                    _buildLanguageDropdown(),
                   ],
                 ),
               ],
@@ -145,7 +102,56 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
     );
   }
 
-  Widget _buildMenus() {
+  Widget _buildMobileView() {
+    return SizedBox(
+      height: 80,
+      child: Row(
+        children: [
+          const Expanded(flex: 1, child: Offstage()),
+          Expanded(
+            flex: 10,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: Image.asset(
+                    'assets/images/logo_gru_chang_no_bg.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () {
+                    DialogUtil.showBottomSheet(
+                      context,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('Menu', style: Theme.of(context).textTheme.large.copyWith(fontWeight: FontWeight.bold)),
+                          const Divider(thickness: 0.2),
+                          const SizedBox(height: 10),
+                          _buildMobileMenus(),
+                          const SizedBox(height: 30),
+                          Text('Setting', style: Theme.of(context).textTheme.large.copyWith(fontWeight: FontWeight.bold)),
+                          const Divider(thickness: 0.2),
+                          const SizedBox(height: 10),
+                          _buildLanguageDropdown(),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+          const Expanded(flex: 1, child: Offstage()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDesktopMenus() {
     List<Widget> listWidgets = [];
     for (Map<String, String> item in listMenus) {
       listWidgets.addAll([
@@ -164,6 +170,88 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
 
     return Row(
       children: listWidgets,
+    );
+  }
+
+  Widget _buildMobileMenus() {
+    List<Widget> listWidgets = [];
+    for (Map<String, String> item in listMenus) {
+      listWidgets.addAll([
+        InkWell(
+          child: _buildText(item),
+          onTap: () {
+            setState(() {
+              menuSelected = item;
+              Navigator.pushNamed(context, menuSelected['route'] ?? AppConstant.emptyString);
+            });
+          },
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          child: Divider(thickness: 0.2),
+        ),
+      ]);
+    }
+
+    return Column(
+      children: listWidgets,
+    );
+  }
+
+  Widget _buildLanguageDropdown() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        isExpanded: true,
+        isDense: true,
+        buttonStyleData: const ButtonStyleData(
+          width: 130,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+          ),
+        ),
+        menuItemStyleData: const MenuItemStyleData(padding: EdgeInsets.all(0)),
+        iconStyleData: const IconStyleData(
+          icon: Icon(
+            Icons.keyboard_arrow_down_rounded,
+          ),
+          iconSize: 20,
+          iconEnabledColor: Colors.yellow,
+        ),
+        items: languageItems
+            .map((item) => DropdownMenuItem<String>(
+                  value: item['value'],
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(width: 14),
+                      Image.asset(
+                        item['icon'] ?? AppConstant.emptyString,
+                        height: 20,
+                      ),
+                      const SizedBox(width: 18),
+                      Expanded(
+                        child: Text(
+                          item['name'] ?? AppConstant.emptyString,
+                          style: Theme.of(context).textTheme.normal,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ))
+            .toList(),
+        value: selectedLanguageValue,
+        onChanged: (value) {
+          if (!ResponsiveBreakpoints.of(context).isDesktop) {
+            Navigator.of(context).pop();
+          }
+
+          setState(() {
+            selectedLanguageValue = value;
+            LanguageUtil.changeLanguage(context, selectedLanguageValue);
+          });
+        },
+      ),
     );
   }
 
