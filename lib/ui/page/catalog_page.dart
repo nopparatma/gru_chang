@@ -23,7 +23,7 @@ class _CatalogPageState extends State<CatalogPage> {
     return CommonLayout(
       isShowBodyByScroll: false,
       menuRouteSelect: RoutePaths.catalogPage,
-      header: HeaderWidget(
+      header: (scrollController) => HeaderWidget(
         title: AppResource.antique.tr(),
         fromPage: AppResource.home.tr(),
       ),

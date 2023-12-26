@@ -23,7 +23,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
     return CommonLayout(
       isShowBodyByScroll: false,
       menuRouteSelect: RoutePaths.contactUsPage,
-      header: HeaderWidget(
+      header: (scrollController) => HeaderWidget(
         title: AppResource.contactUs.tr(),
         fromPage: AppResource.home.tr(),
       ),

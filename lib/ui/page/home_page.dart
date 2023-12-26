@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
         return CommonLayout(
           isShowBodyByScroll: true,
           menuRouteSelect: RoutePaths.homePage,
-          header: const BannerHomeWidget(),
+          header: (scrollController) => BannerHomeWidget(scrollController: scrollController),
           name: AppResource.catalog.tr(),
           body: _buildContent(),
         );

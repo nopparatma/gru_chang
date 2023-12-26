@@ -33,19 +33,19 @@ class GoldGradientButtonWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               onPressed: () {
-                DialogUtil.showCustomDialog(
-                  context,
-                  backgroundColor: colorBackground,
-                  barrierDismissible: true,
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height > MediaQuery.of(context).size.width ? MediaQuery.of(context).size.width * 0.8 : MediaQuery.of(context).size.height * 0.8,
-                    width: MediaQuery.of(context).size.height > MediaQuery.of(context).size.width ? MediaQuery.of(context).size.width * 0.8 : MediaQuery.of(context).size.height * 0.8,
-                    child: PhotoView(
-                      backgroundDecoration: const BoxDecoration(color: Colors.transparent),
-                      imageProvider: const AssetImage('assets/images/p3.jpeg'),
-                    ),
-                  ),
-                );
+                // DialogUtil.showCustomDialog(
+                //   context,
+                //   backgroundColor: colorBackground,
+                //   barrierDismissible: true,
+                //   child: SizedBox(
+                //     height: MediaQuery.of(context).size.height > MediaQuery.of(context).size.width ? MediaQuery.of(context).size.width * 0.8 : MediaQuery.of(context).size.height * 0.8,
+                //     width: MediaQuery.of(context).size.height > MediaQuery.of(context).size.width ? MediaQuery.of(context).size.width * 0.8 : MediaQuery.of(context).size.height * 0.8,
+                //     child: PhotoView(
+                //       backgroundDecoration: const BoxDecoration(color: Colors.transparent),
+                //       imageProvider: const AssetImage('assets/images/p3.jpeg'),
+                //     ),
+                //   ),
+                // );
               },
             ),
           ),

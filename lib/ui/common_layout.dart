@@ -5,9 +5,10 @@ import 'package:gru_chang/ui/widget/main_content_widget.dart';
 import 'package:gru_chang/ui/widget/menu_top_bar_widget.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class CommonLayout extends StatefulWidget {
-  final Widget header;
+  final Widget Function(AutoScrollController scrollController) header;
   final String name;
   final Widget body;
   final bool isShowBodyByScroll;
@@ -28,7 +29,7 @@ class CommonLayout extends StatefulWidget {
 }
 
 class _CommonLayoutState extends State<CommonLayout> {
-  late ScrollController _scrollController;
+  late AutoScrollController _scrollController;
   late double pixels = 0.0;
 
   late List<Widget> listMenuWidgets = [];
@@ -44,7 +45,7 @@ class _CommonLayoutState extends State<CommonLayout> {
 
   @override
   void initState() {
-    _scrollController = ScrollController();
+    _scrollController = AutoScrollController(initialScrollOffset: 0);
     _scrollController.addListener(() {
       setState(() {
         pixels = _scrollController.position.pixels;
@@ -75,14 +76,19 @@ class _CommonLayoutState extends State<CommonLayout> {
               physics: const ClampingScrollPhysics(),
               children: [
                 MenuTopBarWidget(menuRouteSelect: widget.menuRouteSelect),
-                widget.header,
-                AnimatedOpacity(
-                  opacity: pixels >= (widget.isShowBodyByScroll ? 100 : 0) ? 1.0 : 0.0,
-                  duration: const Duration(seconds: 3),
-                  curve: Curves.fastOutSlowIn,
-                  child: MainContentWidget(
-                    title: widget.name,
-                    content: widget.body,
+                widget.header(_scrollController),
+                AutoScrollTag(
+                  controller: _scrollController,
+                  key: const ValueKey(0),
+                  index: 0,
+                  child: AnimatedOpacity(
+                    opacity: pixels >= (widget.isShowBodyByScroll ? 100 : 0) ? 1.0 : 0.0,
+                    duration: const Duration(seconds: 3),
+                    curve: Curves.fastOutSlowIn,
+                    child: MainContentWidget(
+                      title: widget.name,
+                      content: widget.body,
+                    ),
                   ),
                 ),
                 _buildFooter(),

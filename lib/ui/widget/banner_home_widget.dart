@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gru_chang/shared/colors.dart';
 import 'package:gru_chang/shared/theme.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 import 'background_image_widget.dart';
 import 'gold_gradient_button_widget.dart';
@@ -11,7 +12,9 @@ import 'gold_gradient_container_widget.dart';
 import 'gold_gradient_text_widget.dart';
 
 class BannerHomeWidget extends StatefulWidget {
-  const BannerHomeWidget({super.key});
+  final AutoScrollController scrollController;
+
+  const BannerHomeWidget({super.key, required this.scrollController});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -42,9 +45,16 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
     super.dispose();
   }
 
+  _onTapBanner() {
+    widget.scrollController.scrollToIndex(0, duration: const Duration(milliseconds: 800));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return _buildContent();
+    return GestureDetector(
+      onTap: () => _onTapBanner(),
+      child: _buildContent(),
+    );
   }
 
   Widget _buildContent() {
@@ -64,6 +74,9 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
           _buildDesktopViewPresenter(),
           _buildFooterBannerShadow(),
           _buildDesktopViewBannerContent(),
+          Positioned.fill(
+            child: Container(color: Colors.transparent),
+          ),
         ],
       ),
     );

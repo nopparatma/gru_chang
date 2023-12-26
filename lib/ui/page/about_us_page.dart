@@ -21,7 +21,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
     return CommonLayout(
       isShowBodyByScroll: false,
       menuRouteSelect: RoutePaths.aboutUsPage,
-      header: HeaderWidget(
+      header: (scrollController) => HeaderWidget(
         title: AppResource.aboutUs.tr(),
         fromPage: AppResource.home.tr(),
       ),
