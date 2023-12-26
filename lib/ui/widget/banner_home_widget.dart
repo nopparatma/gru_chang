@@ -20,7 +20,7 @@ class BannerHomeWidget extends StatefulWidget {
 
 class _BannerHomeWidgetState extends State<BannerHomeWidget> {
   final presenterValues = [
-    'assets/images/image_presenter2.png',
+    // 'assets/images/image_presenter2.png',
     'assets/images/image_presenter3.png',
     'assets/images/image_presenter4.png',
   ];
@@ -61,8 +61,9 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
       child: Stack(
         children: [
           const BackgroundImageWidget(isUseGradient: true),
-          _buildDesktopViewBannerContent(),
           _buildDesktopViewPresenter(),
+          _buildFooterBannerShadow(),
+          _buildDesktopViewBannerContent(),
         ],
       ),
     );
@@ -75,7 +76,25 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
         children: [
           const BackgroundImageWidget(isUseGradient: true),
           _buildMobileViewBannerContent(),
+          _buildFooterBannerShadow(),
         ],
+      ),
+    );
+  }
+
+  Widget _buildFooterBannerShadow() {
+    return Positioned.fill(
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              for (int i = 0; i < 5; i++) colorBackground.withOpacity(0.1),
+              colorBackground,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
       ),
     );
   }
@@ -154,23 +173,23 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
                 Expanded(
                   flex: 30,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       GoldGradientTextWidget(
                         text: 'Guru-Chang Antique',
-                        style: Theme.of(context).textTheme.extraLarger,
+                        style: Theme.of(context).textTheme.xLarger,
                       ),
                       GoldGradientTextWidget(
                         text: 'Gold Jewelry',
-                        style: Theme.of(context).textTheme.extraLarger,
+                        style: Theme.of(context).textTheme.xLarger,
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 30),
                       Text(
                         'The Perfect Jewelry for you',
                         style: Theme.of(context).textTheme.normal,
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 30),
                       SizedBox(
                         width: 200,
                         child: GoldGradientButtonWidget(
@@ -178,7 +197,7 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
                           style: Theme.of(context).textTheme.normal.copyWith(color: colorBlack),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 50),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -187,7 +206,7 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
                           _buildPhoneNumberSection(phoneNumber: '083-459-7773'),
                         ],
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
                       _buildMobileViewPresenter(),
                     ],
                   ),
@@ -235,8 +254,8 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
   }
 
   Widget _buildMobileViewPresenter() {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.3,
+    return Expanded(
+      // height: MediaQuery.of(context).size.height * 0.3,
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 2000),
         switchInCurve: Curves.easeIn,
