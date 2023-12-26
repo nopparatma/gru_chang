@@ -6,10 +6,14 @@ import 'gold_gradient_text_widget.dart';
 class MainContentWidget extends StatefulWidget {
   final String title;
   final Widget content;
+  final ScrollController scrollController;
+  final bool isShowBodyByScroll;
 
   const MainContentWidget({
     required this.title,
     required this.content,
+    required this.scrollController,
+    required this.isShowBodyByScroll,
     super.key,
   });
 
@@ -19,9 +23,27 @@ class MainContentWidget extends StatefulWidget {
 }
 
 class _MainContentWidgetState extends State<MainContentWidget> {
+  late double pixels = 0.0;
+
+  @override
+  void initState() {
+    widget.scrollController.addListener(() {
+      setState(() {
+        pixels = widget.scrollController.position.pixels;
+      });
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return _buildMainContent();
+    return AnimatedOpacity(
+      opacity: pixels >= (widget.isShowBodyByScroll ? 100 : 0) ? 1.0 : 0.0,
+      duration: const Duration(seconds: 3),
+      curve: Curves.fastOutSlowIn,
+      child: _buildMainContent(),
+    );
   }
 
   Widget _buildMainContent() {

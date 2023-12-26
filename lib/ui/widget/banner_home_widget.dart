@@ -23,7 +23,7 @@ class BannerHomeWidget extends StatefulWidget {
 
 class _BannerHomeWidgetState extends State<BannerHomeWidget> {
   final presenterValues = [
-    // 'assets/images/image_presenter2.png',
+    'assets/images/image_presenter2.png',
     'assets/images/image_presenter3.png',
     'assets/images/image_presenter4.png',
   ];
@@ -32,7 +32,7 @@ class _BannerHomeWidgetState extends State<BannerHomeWidget> {
 
   @override
   void initState() {
-    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 8), (timer) {
       setState(() => _index++);
     });
 

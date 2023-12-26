@@ -30,7 +30,6 @@ class CommonLayout extends StatefulWidget {
 
 class _CommonLayoutState extends State<CommonLayout> {
   late AutoScrollController _scrollController;
-  late double pixels = 0.0;
 
   late List<Widget> listMenuWidgets = [];
 
@@ -46,11 +45,6 @@ class _CommonLayoutState extends State<CommonLayout> {
   @override
   void initState() {
     _scrollController = AutoScrollController(initialScrollOffset: 0);
-    _scrollController.addListener(() {
-      setState(() {
-        pixels = _scrollController.position.pixels;
-      });
-    });
 
     _initPackageInfo();
 
@@ -81,14 +75,11 @@ class _CommonLayoutState extends State<CommonLayout> {
                   controller: _scrollController,
                   key: const ValueKey(0),
                   index: 0,
-                  child: AnimatedOpacity(
-                    opacity: pixels >= (widget.isShowBodyByScroll ? 100 : 0) ? 1.0 : 0.0,
-                    duration: const Duration(seconds: 3),
-                    curve: Curves.fastOutSlowIn,
-                    child: MainContentWidget(
-                      title: widget.name,
-                      content: widget.body,
-                    ),
+                  child: MainContentWidget(
+                    title: widget.name,
+                    content: widget.body,
+                    isShowBodyByScroll: widget.isShowBodyByScroll,
+                    scrollController: _scrollController,
                   ),
                 ),
                 _buildFooter(),
