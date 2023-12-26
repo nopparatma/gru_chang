@@ -3,6 +3,7 @@ import 'package:gru_chang/shared/theme.dart';
 import 'package:gru_chang/ui/widget/background_image_widget.dart';
 import 'package:gru_chang/ui/widget/main_content_widget.dart';
 import 'package:gru_chang/ui/widget/menu_top_bar_widget.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
 
 class CommonLayout extends StatefulWidget {
@@ -32,6 +33,15 @@ class _CommonLayoutState extends State<CommonLayout> {
 
   late List<Widget> listMenuWidgets = [];
 
+  PackageInfo _packageInfo = PackageInfo(
+    appName: 'Unknown',
+    packageName: 'Unknown',
+    version: 'Unknown',
+    buildNumber: 'Unknown',
+    buildSignature: 'Unknown',
+    installerStore: 'Unknown',
+  );
+
   @override
   void initState() {
     _scrollController = ScrollController();
@@ -41,7 +51,16 @@ class _CommonLayoutState extends State<CommonLayout> {
       });
     });
 
+    _initPackageInfo();
+
     super.initState();
+  }
+
+  Future<void> _initPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
   }
 
   @override
@@ -144,6 +163,11 @@ class _CommonLayoutState extends State<CommonLayout> {
               height,
               Text(
                 'Copyright 2023 GruChangThaiGoldSmith.Com',
+                style: Theme.of(context).textTheme.smaller.copyWith(color: Colors.grey),
+              ),
+              height,
+              Text(
+                'Version: ${_packageInfo.version} build ${_packageInfo.buildNumber}',
                 style: Theme.of(context).textTheme.smaller.copyWith(color: Colors.grey),
               ),
               height,

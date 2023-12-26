@@ -4,6 +4,7 @@ import 'package:catcher/core/catcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:gru_chang/shared/colors.dart';
 import 'package:gru_chang/shared/ui_config.dart';
 import 'package:gru_chang/ui/router.dart';
@@ -71,7 +72,7 @@ class _MainWebState extends State<MainWeb> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapUp: (detail) => FocusScope.of(context).requestFocus(FocusNode()),
-      child: MaterialApp(
+      child: GetMaterialApp(
         title: AppConfig.instance.applicationName,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
