@@ -305,6 +305,10 @@ class _CommonLayoutState extends State<CommonLayout> {
                             'Copyright 2023 GruChangThaiGoldSmith.Com',
                             style: Theme.of(context).textTheme.smaller.copyWith(color: Colors.grey),
                           ),
+                          Text(
+                            'Version: ${_packageInfo.version} build ${_packageInfo.buildNumber}',
+                            style: Theme.of(context).textTheme.smaller.copyWith(color: Colors.grey),
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Row(
