@@ -6,6 +6,7 @@ import 'package:gru_chang/ui/widget/menu_top_bar_widget.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:sticky_headers/sticky_headers/widget.dart';
 
 class CommonLayout extends StatefulWidget {
   final Widget Function(AutoScrollController scrollController) header;
@@ -64,25 +65,35 @@ class _CommonLayoutState extends State<CommonLayout> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          MenuTopBarWidget(menuRouteSelect: widget.menuRouteSelect),
           Expanded(
             child: ListView(
               controller: _scrollController,
               physics: const ClampingScrollPhysics(),
               children: [
-                widget.header(_scrollController),
-                AutoScrollTag(
-                  controller: _scrollController,
-                  key: const ValueKey(0),
-                  index: 0,
-                  child: MainContentWidget(
-                    title: widget.name,
-                    content: widget.body,
-                    isShowBodyByScroll: widget.isShowBodyByScroll,
-                    scrollController: _scrollController,
+                StickyHeader(
+                  controller: _scrollController, // Optional
+                  header: MenuTopBarWidget(menuRouteSelect: widget.menuRouteSelect),
+                  content: Column(
+                    children: [
+                      widget.header(_scrollController),
+                      AutoScrollTag(
+                        controller: _scrollController,
+                        key: const ValueKey(0),
+                        index: 0,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 40),
+                          child: MainContentWidget(
+                            title: widget.name,
+                            content: widget.body,
+                            isShowBodyByScroll: widget.isShowBodyByScroll,
+                            scrollController: _scrollController,
+                          ),
+                        ),
+                      ),
+                      _buildFooter(),
+                    ],
                   ),
                 ),
-                _buildFooter(),
               ],
             ),
           ),

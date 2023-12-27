@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gru_chang/app/app_constant.dart';
 import 'package:gru_chang/app/app_resource.dart';
+import 'package:gru_chang/shared/colors.dart';
 import 'package:gru_chang/shared/theme.dart';
 import 'package:gru_chang/ui/router.dart';
 import 'package:gru_chang/utils/dialog_util.dart';
@@ -69,7 +70,8 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
   }
 
   Widget _buildDesktopView() {
-    return SizedBox(
+    return Container(
+      color: colorBackground,
       height: 80,
       child: Row(
         children: [
@@ -103,7 +105,8 @@ class _MenuTopBarWidgetState extends State<MenuTopBarWidget> {
   }
 
   Widget _buildMobileView() {
-    return SizedBox(
+    return Container(
+      color: colorBackground,
       height: 80,
       child: Row(
         children: [
