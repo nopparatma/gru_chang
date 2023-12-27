@@ -64,12 +64,12 @@ class _CommonLayoutState extends State<CommonLayout> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          MenuTopBarWidget(menuRouteSelect: widget.menuRouteSelect),
           Expanded(
             child: ListView(
               controller: _scrollController,
               physics: const ClampingScrollPhysics(),
               children: [
-                MenuTopBarWidget(menuRouteSelect: widget.menuRouteSelect),
                 widget.header(_scrollController),
                 AutoScrollTag(
                   controller: _scrollController,
