@@ -3,6 +3,7 @@ import 'package:gru_chang/ui/page/about_us_page.dart';
 import 'package:gru_chang/ui/page/catalog_page.dart';
 import 'package:gru_chang/ui/page/contact_us_page.dart';
 import 'package:gru_chang/ui/page/home_page.dart';
+import 'package:gru_chang/ui/page/splash_page.dart';
 
 class RoutePaths {
   static const String index = '/';
@@ -10,11 +11,12 @@ class RoutePaths {
   static const String catalogPage = '/catalog';
   static const String aboutUsPage = '/about_us';
   static const String contactUsPage = '/contact_us';
+  static const String splashPage = '/splash';
 }
 
 class WebRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    // Map<String, dynamic> arguments = Map<String, dynamic>.from(settings.arguments == null ? {} : settings.arguments as Map<String, dynamic>);
+    Map<String, dynamic> arguments = Map<String, dynamic>.from(settings.arguments == null ? {} : settings.arguments as Map<String, dynamic>);
 
     switch (settings.name) {
       case RoutePaths.homePage:
@@ -36,6 +38,11 @@ class WebRouter {
         return MaterialPageRoute(
           settings: settings,
           builder: (_) => const ContactUsPage(),
+        );
+      case RoutePaths.splashPage:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const SplashPage(),
         );
       default:
         return MaterialPageRoute(

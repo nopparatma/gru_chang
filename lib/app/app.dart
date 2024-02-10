@@ -4,7 +4,9 @@ import 'package:catcher/core/catcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:gru_chang/bloc/splash/splash_bloc.dart';
 import 'package:gru_chang/shared/colors.dart';
 import 'package:gru_chang/shared/ui_config.dart';
 import 'package:gru_chang/ui/router.dart';
@@ -19,19 +21,26 @@ class MainAppLocalization extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return EasyLocalization(
-      path: 'assets/languages',
-      supportedLocales: const [
-        Locale('th'),
-        Locale('en'),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SplashBloc>(
+          create: (context) => SplashBloc(),
+        ),
       ],
-      fallbackLocale: const Locale('th'),
-      startLocale: const Locale('th'),
-      child: GlobalLoaderOverlay(
-        useDefaultLoading: false,
-        overlayColor: Colors.black.withOpacity(0.5),
-        overlayWidgetBuilder: (progress) => buildOverlayLoader(),
-        child: buildChild(),
+      child: EasyLocalization(
+        path: 'assets/languages',
+        supportedLocales: const [
+          Locale('th'),
+          Locale('en'),
+        ],
+        fallbackLocale: const Locale('th'),
+        startLocale: const Locale('th'),
+        child: GlobalLoaderOverlay(
+          useDefaultLoading: false,
+          overlayColor: Colors.black.withOpacity(0.5),
+          overlayWidgetBuilder: (progress) => buildOverlayLoader(),
+          child: buildChild(),
+        ),
       ),
     );
   }
@@ -100,7 +109,7 @@ class _MainWebState extends State<MainWeb> {
         ),
         navigatorKey: Catcher.navigatorKey,
         onGenerateRoute: WebRouter.generateRoute,
-        initialRoute: RoutePaths.homePage,
+        initialRoute: RoutePaths.splashPage,
       ),
     );
   }
